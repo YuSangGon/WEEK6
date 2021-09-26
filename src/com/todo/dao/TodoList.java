@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.todo.service.TodoSortByDate;
 import com.todo.service.TodoSortByName;
+import com.todo.service.TodoUtil;
 
 public class TodoList {
 	private List<TodoItem> list;
@@ -36,9 +37,10 @@ public class TodoList {
 	}
 
 	public void listAll() {
-		System.out.println("[전체 목록]");
+		System.out.println("[전체 목록, 총 " + TodoUtil.Getcount() + "개]");
+		int i = 1;
 		for (TodoItem myitem : list) {
-			System.out.println("[" + myitem.getTitle() +"] "+ myitem.getDesc() + " - " + myitem.getTime());
+			System.out.println(i++ + ". [" + myitem.getCategory() +"] " + myitem.getTitle() + " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " - " + myitem.getTime());
 		}
 	}
 	
