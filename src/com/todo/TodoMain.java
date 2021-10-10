@@ -12,13 +12,11 @@ public class TodoMain {
 	
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
-		TodoUtil.loadList(l, "todolist.txt");
-		boolean isList = false;
+		l.importData("todolist.txt");
 		boolean quit = false;
 		Menu.displaymenu();
 		do {
 			Menu.prompt();
-			isList = false;
 			String choice = sc.next();
 			switch (choice) {
 
@@ -35,33 +33,27 @@ public class TodoMain {
 				break;
 				
 			case "ls":
-				TodoUtil.listAll(l);
+				TodoUtil.listAll(l, 0);
 				break;
 
-			case "ls_name_asc":
-				l.sortByName();
+			case "ls_name":
 				System.out.println("제목 순으로 정렬하였습니다.");
-				isList = true;
+				TodoUtil.listAll(l, "title", 1);
 				break;
 
 			case "ls_name_desc":
-				l.sortByName();
-				l.reverseList();
 				System.out.println("제목 역순으로 정렬하였습니다.");
-				isList = true;
+				TodoUtil.listAll(l, "title", 0);
 				break;
 				
 			case "ls_date":
-				l.sortByDate();
 				System.out.println("날짜 순으로 정렬하였습니다.");
-				isList = true;
+				TodoUtil.listAll(l, "due_date", 1);
 				break;
 				
 			case "ls_date_desc":
-				l.sortByDate();
-				l.reverseList();
 				System.out.println("날짜 역순으로 정렬하였습니다.");
-				isList = true;
+				TodoUtil.listAll(l, "due_date", 0);
 				break;
 				
 			case "ls_cate" :
@@ -79,6 +71,14 @@ public class TodoMain {
 			case "find_cate" :
 				TodoUtil.findCate(l, sc.next());
 				break;
+				
+			case "comp" :
+				TodoUtil.comp(l, sc.nextInt());
+				break;
+				
+			case "ls_comp" :
+				TodoUtil.listAll(l, 1);
+				break;
 
 			case "exit":
 				System.out.println("종료되었습니다.");
@@ -90,8 +90,6 @@ public class TodoMain {
 				System.out.println("정확한 명령어를 입력하세요. (도움말 - help)");
 				break;
 			}
-			
-			if(isList) l.listAll();
 		} while (!quit);
 		TodoUtil.saveList(l, "todolist.txt");
 	}
