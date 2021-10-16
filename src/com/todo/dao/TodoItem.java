@@ -12,11 +12,13 @@ public class TodoItem {
     private String due_date;
     private int id;
     private int is_completed;
+    private int priority;
+    private int expected_time;
     
-    SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd/HH시mm분ss초");
 
 
-    public TodoItem(String title, String desc, String category, String due_date){
+    public TodoItem(String title, String desc, String category, String due_date, int priority, int expected_time){
         this.title=title;
         this.desc=desc;
         this.current_date=new Date();
@@ -24,6 +26,8 @@ public class TodoItem {
         this.category = category;
         this.due_date = due_date;
         this.is_completed = 0;
+        this.priority = priority;
+        this.expected_time = expected_time;
     }
     
     public TodoItem(String title, String desc, String time, String category, String due_date) {
@@ -32,6 +36,22 @@ public class TodoItem {
         this.time = time;
         this.category = category;
         this.due_date = due_date;
+    }
+    
+    public int getExpectedTime() {
+    	return expected_time;
+    }
+    
+    public void setExpectedTime(int expected_time) {
+    	this.expected_time = expected_time;
+    }
+    
+    public int getPriority() {
+    	return priority;
+    }
+    
+    public void setPriority(int priority) {
+    	this.priority = priority;
     }
     
     public int getIs_Completed() {
@@ -92,11 +112,11 @@ public class TodoItem {
     	this.time = time;
     }
     public String toSaveString() {
-    	return category + "##" + title + "##" + desc + "##" + due_date + "##" + time + "\n";
+    	return category + "##" + title + "##" + desc + "##" + priority + "##" + due_date + "##"+ expected_time + "##" + time + "\n";
     }
     public String toString() {
     	if(is_completed == 0)
-    		return id + " [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + time;
-    	return id + " [" + category + "] " + title + "[V] - " + desc + " - " + due_date + " - " + time;
+    		return id + " [" + category + "] " + title + " - " + desc + " - priority : " + priority + " - " + due_date + " - 예상소요시간 : " + expected_time + "분 - " + time;
+    	return id + " [" + category + "] " + title + "[V] - " + desc + " - priority : " + priority + " - " + due_date + " - 예상소요시간 : " + expected_time + "분 - " + time;
     }
 }
